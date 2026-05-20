@@ -1,0 +1,1197 @@
+/* ==========================================================================
+   Design System & Base Styles
+   ========================================================================== */
+
+:root {
+  /* Typography */
+  --font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  
+  /* Shared Colors */
+  --color-white: #ffffff;
+  --color-gray-50: #f9fafb;
+  --color-gray-100: #f3f4f6;
+  --color-gray-200: #e5e7eb;
+  --color-gray-400: #9ca3af;
+  --color-gray-600: #4b5563;
+  --color-gray-800: #1f2937;
+  --color-gray-900: #111827;
+  
+  /* Primary Brand colors matching cv.bmp */
+  --color-brand-dark: #386b2e; /* Dark green main theme */
+  --color-brand-light: #f2f5f2;
+  
+  /* Node specific colors (customized per node) */
+  --color-2015: #84bd00;
+  --color-2015-rgb: 132, 189, 0;
+  --color-2016: #386b2e;
+  --color-2016-rgb: 56, 107, 46;
+  --color-2017: #0e9f6e;
+  --color-2017-rgb: 14, 159, 110;
+  --color-2018: #00a3a4;
+  --color-2018-rgb: 0, 163, 164;
+  --color-2022: #0288d1;
+  --color-2022-rgb: 2, 136, 209;
+
+  /* Transitions */
+  --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Light Theme Variables */
+body.light-mode {
+  --bg-primary: #f5f7f5;
+  --bg-card: rgba(255, 255, 255, 0.85);
+  --card-border: rgba(229, 231, 235, 0.8);
+  --text-primary: #1f2937;
+  --text-secondary: #4b5563;
+  --text-muted: #6b7280;
+  --timeline-line-bg: #c5d4c2;
+  --timeline-line-fill: #386b2e;
+  --card-shadow: 0 10px 30px rgba(56, 107, 46, 0.06), 0 1px 3px rgba(0, 0, 0, 0.02);
+  --card-shadow-hover: 0 20px 40px rgba(56, 107, 46, 0.12), 0 1px 3px rgba(0, 0, 0, 0.02);
+  --header-bg: rgba(245, 247, 245, 0.8);
+  --glow-opacity: 0.4;
+  --btn-bg: #ffffff;
+  --btn-border: #e5e7eb;
+  --btn-text: #1f2937;
+}
+
+/* Dark Theme Variables */
+body.dark-mode {
+  --bg-primary: #0b0e0b;
+  --bg-card: rgba(20, 26, 20, 0.8);
+  --card-border: rgba(255, 255, 255, 0.06);
+  --text-primary: #f3f4f6;
+  --text-secondary: #d1d5db;
+  --text-muted: #9ca3af;
+  --timeline-line-bg: #1c261b;
+  --timeline-line-fill: #5a9e4d;
+  --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), 0 1px 3px rgba(0, 0, 0, 0.1);
+  --card-shadow-hover: 0 20px 40px rgba(90, 158, 77, 0.1), 0 1px 3px rgba(0, 0, 0, 0.1);
+  --header-bg: rgba(11, 14, 11, 0.8);
+  --glow-opacity: 0.15;
+  --btn-bg: #141a14;
+  --btn-border: rgba(255, 255, 255, 0.1);
+  --btn-text: #f3f4f6;
+}
+
+/* Base resets */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-family);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  min-height: 100vh;
+  overflow-x: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  transition: background-color var(--transition-normal), color var(--transition-normal);
+}
+
+/* ==========================================================================
+   Background Glows (Premium Aesthetic)
+   ========================================================================== */
+
+.glow-bg {
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  filter: blur(120px);
+  pointer-events: none;
+  opacity: var(--glow-opacity);
+  z-index: 0;
+  transition: opacity var(--transition-normal);
+}
+
+.glow-bg-1 {
+  top: 10%;
+  left: -100px;
+  background: radial-gradient(circle, var(--color-brand-dark) 0%, transparent 70%);
+}
+
+.glow-bg-2 {
+  bottom: 10%;
+  right: -100px;
+  background: radial-gradient(circle, var(--color-2022) 0%, transparent 70%);
+}
+
+/* ==========================================================================
+   Header & Controls
+   ========================================================================== */
+
+header {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  z-index: 100;
+  background-color: var(--header-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--card-border);
+  transition: background-color var(--transition-normal), border-color var(--transition-normal);
+}
+
+.header-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 1.5rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.main-title {
+  font-size: 2.25rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--color-brand-dark);
+  text-transform: uppercase;
+  position: relative;
+}
+
+body.dark-mode .main-title {
+  color: var(--timeline-line-fill);
+  text-shadow: 0 0 15px rgba(90, 158, 77, 0.3);
+}
+
+/* Theme Toggle Button styling */
+.theme-btn {
+  background-color: var(--btn-bg);
+  border: 1px solid var(--btn-border);
+  color: var(--btn-text);
+  padding: 0.6rem;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-fast);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+.theme-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  border-color: var(--color-brand-dark);
+}
+
+.theme-btn svg {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.theme-btn .sun-icon {
+  display: none;
+}
+
+body.dark-mode .theme-btn .sun-icon {
+  display: block;
+}
+
+body.dark-mode .theme-btn .moon-icon {
+  display: none;
+}
+
+/* Language Toggle */
+.lang-toggle {
+  display: inline-flex;
+  gap: 0.25rem;
+  align-items: center;
+}
+
+.lang-btn {
+  background-color: var(--btn-bg);
+  border: 1px solid var(--btn-border);
+  color: var(--btn-text);
+  padding: 0.45rem 0.6rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 0.9rem;
+  transition: all var(--transition-fast);
+}
+
+.lang-btn.active,
+.lang-btn:focus {
+  background-color: var(--color-brand-dark);
+  color: var(--color-white);
+  border-color: transparent;
+}
+
+/* ==========================================================================
+   Timeline Horizontal Layout (Desktop)
+   ========================================================================== */
+
+.timeline-wrapper {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 2rem;
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+.timeline-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  width: 100%;
+  height: 720px; /* High container to fit top and bottom content card details */
+  padding: 0 160px;
+}
+
+/* Timeline central axis line */
+.timeline-axis-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 6px;
+  background-color: var(--timeline-line-bg);
+  border-radius: 3px;
+  transform: translateY(-50%);
+  z-index: 1;
+  transition: background-color var(--transition-normal);
+  overflow: hidden;
+}
+
+/* Filled progress bar along the axis */
+.timeline-progress {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 100%; /* Fully filled by default to clone cv.bmp style */
+  background: linear-gradient(90deg, 
+    var(--color-2015) 0%, 
+    var(--color-2016) 25%, 
+    var(--color-2017) 50%, 
+    var(--color-2018) 75%, 
+    var(--color-2022) 100%
+  );
+  border-radius: 3px;
+  transition: width var(--transition-slow);
+}
+
+/* Individual timeline milestone node */
+.timeline-node {
+  position: relative;
+  width: 18%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 2;
+}
+
+/* Set node specific color variables dynamically in CSS */
+.node-2015 { --node-color: var(--color-2015); --node-color-rgb: var(--color-2015-rgb); }
+.node-2016 { --node-color: var(--color-2016); --node-color-rgb: var(--color-2016-rgb); }
+.node-2017 { --node-color: var(--color-2017); --node-color-rgb: var(--color-2017-rgb); }
+.node-2018 { --node-color: var(--color-2018); --node-color-rgb: var(--color-2018-rgb); }
+.node-2022 { --node-color: var(--color-2022); --node-color-rgb: var(--color-2022-rgb); }
+
+/* Timeline Pin/Marker (Dot on the main line) */
+.timeline-marker {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 24px;
+  height: 24px;
+  background-color: var(--node-color);
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  z-index: 5;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-fast);
+}
+
+.timeline-marker::after {
+  content: '';
+  width: 16px;
+  height: 16px;
+  background-color: var(--bg-primary);
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  transition: all var(--transition-fast);
+  display: block;
+}
+
+.timeline-marker:hover {
+  transform: translate(-50%, -50%) scale(1.3);
+}
+
+.timeline-marker:hover::after {
+  background-color: var(--node-color);
+}
+
+.marker-dot {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background-color: var(--node-color);
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  transition: all var(--transition-fast);
+  z-index: 6;
+  pointer-events: none;
+}
+
+.timeline-marker:hover .marker-dot {
+  background-color: var(--bg-card);
+  transform: scale(1.2);
+}
+
+/* Timeline Vertical Connector stem */
+.timeline-connector {
+  position: absolute;
+  width: 3px;
+  background: linear-gradient(to bottom, var(--timeline-line-bg), var(--node-color));
+  z-index: 2;
+  transition: height var(--transition-slow) ease-out, background var(--transition-normal);
+}
+
+/* Icon box */
+.timeline-icon-box {
+  position: absolute;
+  z-index: 3;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.08));
+  transition: all var(--transition-normal);
+}
+
+body.dark-mode .timeline-icon-box {
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.4));
+}
+
+.timeline-icon-hexagon {
+  width: 56px;
+  height: 56px;
+  background-color: var(--node-color);
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  transition: all var(--transition-normal);
+  cursor: pointer;
+}
+
+.timeline-icon-hexagon::after {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  right: 3px;
+  bottom: 3px;
+  background-color: var(--bg-card);
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  z-index: 1;
+  transition: all var(--transition-normal);
+}
+
+.timeline-icon-hexagon svg {
+  width: 24px;
+  height: 24px;
+  color: var(--node-color);
+  z-index: 2;
+  transition: all var(--transition-normal);
+}
+
+/* Year Label (on opposite side of card) */
+.timeline-year-label {
+  position: absolute;
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+  transition: all var(--transition-normal);
+}
+
+/* Content card base design */
+.timeline-card {
+  position: absolute;
+  width: 403px; /* increased by ~30% from 310px */
+  background-color: var(--bg-card);
+  border: 1px solid var(--card-border);
+  border-top: 4px solid var(--node-color);
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: var(--card-shadow);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal), background-color var(--transition-normal), border-color var(--transition-normal);
+  z-index: 4;
+}
+
+.timeline-card::before {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  transition: border-color var(--transition-normal);
+}
+
+/* Hover effects for node elements */
+.timeline-node:hover .timeline-card {
+  transform: translateX(-50%) translateY(-6px);
+  box-shadow: var(--card-shadow-hover);
+}
+
+.timeline-node:hover .timeline-icon-box {
+  filter: drop-shadow(0 10px 20px rgba(var(--node-color-rgb), 0.3));
+}
+
+body.dark-mode .timeline-node:hover .timeline-icon-box {
+  filter: drop-shadow(0 10px 25px rgba(var(--node-color-rgb), 0.45));
+}
+
+.timeline-node:hover .timeline-icon-hexagon {
+  transform: scale(1.15);
+}
+
+.timeline-node:hover .timeline-icon-hexagon::after {
+  background-color: var(--node-color);
+}
+
+.timeline-node:hover .timeline-icon-hexagon svg {
+  color: var(--color-white);
+  transform: rotate(10deg);
+}
+
+/* Alternating positioning configurations */
+
+/* Down nodes: cards at bottom, years at top */
+.node-down .timeline-connector {
+  top: 50%;
+  height: 60px;
+}
+
+.node-down .timeline-icon-box {
+  top: calc(50% + 50px);
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.node-down .timeline-year-label {
+  bottom: calc(50% + 40px);
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.node-down .timeline-card {
+  top: calc(50% + 130px);
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.node-down .timeline-card::before {
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 0 10px 10px 10px;
+  border-color: transparent transparent var(--node-color) transparent;
+}
+
+/* Up nodes: cards at top, years at bottom */
+.node-up .timeline-connector {
+  bottom: 50%;
+  height: 60px;
+}
+
+.node-up .timeline-icon-box {
+  bottom: calc(50% + 50px);
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.node-up .timeline-year-label {
+  top: calc(50% + 40px);
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.node-up .timeline-card {
+  bottom: calc(50% + 130px);
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.node-up .timeline-card::before {
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 10px 10px 0 10px;
+  border-color: var(--card-border) transparent transparent transparent;
+  display: none; /* Hide indicator triangle for bottom of card or style it */
+}
+
+/* ==========================================================================
+   Typography inside Timeline Cards
+   ========================================================================== */
+
+.role-title {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: var(--node-color);
+  margin-bottom: 0.25rem;
+  line-height: 1.2;
+}
+
+.company-name {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: 1rem;
+}
+
+.task-list {
+  list-style: none;
+  font-size: 0.825rem;
+  line-height: 1.5;
+  color: var(--text-secondary);
+}
+
+.task-list li {
+  position: relative;
+  padding-left: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.task-list li:not(.list-header)::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: var(--node-color);
+  font-weight: bold;
+}
+
+.task-list li.list-header {
+  padding-left: 0;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+}
+
+/* ==========================================================================
+   Footer
+   ========================================================================== */
+
+footer {
+  padding: 2.5rem 0;
+  text-align: center;
+  border-top: 1px solid var(--card-border);
+  background-color: var(--header-bg);
+  position: relative;
+  z-index: 10;
+}
+
+.footer-text {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+/* ==========================================================================
+   Animations
+   ========================================================================== */
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Intersection Observer Class triggers */
+.fade-in-up {
+  opacity: 0;
+}
+
+.fade-in-up.active {
+  animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.fade-in-down {
+  opacity: 0;
+}
+
+.fade-in-down.active {
+  animation: fadeInDown 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* ==========================================================================
+   Responsive Styles (Tablet / Mobile)
+   ========================================================================== */
+
+@media (max-width: 1024px) {
+  .glow-bg {
+    width: 300px;
+    height: 300px;
+    filter: blur(80px);
+  }
+
+  .header-container {
+    padding: 1.25rem 1.5rem;
+  }
+
+  .main-title {
+    font-size: 1.75rem;
+  }
+
+  .timeline-wrapper {
+    padding: 3rem 1.5rem;
+  }
+
+  .timeline-container {
+    flex-direction: column;
+    height: auto;
+    align-items: flex-start;
+    padding: 0 1rem 0 50px;
+    gap: 3rem;
+  }
+
+  /* Transition axis to a vertical line on the left */
+  .timeline-axis-line {
+    left: 20px;
+    top: 0;
+    bottom: 0;
+    width: 6px;
+    height: 100%;
+    transform: none;
+  }
+
+  .timeline-progress {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, 
+      var(--color-2015) 0%, 
+      var(--color-2016) 25%, 
+      var(--color-2017) 50%, 
+      var(--color-2018) 75%, 
+      var(--color-2022) 100%
+    );
+  }
+
+  /* Nodes as vertical blocks */
+  .timeline-node {
+    width: 100%;
+    height: auto;
+    align-items: flex-start;
+    padding-left: 40px;
+  }
+
+  /* Align marker to the left axis line */
+  .timeline-marker {
+    left: 20px;
+    top: 28px;
+    transform: translate(-50%, -50%);
+  }
+
+  .timeline-marker:hover {
+    transform: translate(-50%, -50%) scale(1.2);
+  }
+
+  /* Hide connection stem on mobile */
+  .timeline-connector {
+    display: none;
+  }
+
+  /* Reposition icon box to align beside the vertical axis */
+  .timeline-icon-box {
+    position: absolute;
+    left: 40px;
+    top: 0;
+    transform: none;
+  }
+
+  .timeline-icon-hexagon {
+    width: 48px;
+    height: 48px;
+  }
+
+  .timeline-icon-hexagon svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  /* Position Year Label nicely inside the layout */
+  .timeline-year-label {
+    position: static;
+    transform: none !important;
+    font-size: 1.5rem;
+    margin-left: 60px;
+    margin-bottom: 0.5rem;
+    display: inline-block;
+  }
+
+  /* Expand card to fill remaining width */
+  .timeline-card {
+    position: static;
+    width: 100%;
+    max-width: 560px;
+    margin-left: 60px;
+    transform: none !important;
+    border-top: none;
+    border-left: 4px solid var(--node-color);
+    border-radius: 12px;
+  }
+
+  .timeline-card::before {
+    display: none;
+  }
+
+  /* Override hover scaling behavior for cards on mobile */
+  .timeline-node:hover .timeline-card {
+    transform: translateY(-2px) !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .header-container {
+    padding: 1rem;
+  }
+
+  .main-title {
+    font-size: 1.5rem;
+  }
+
+  .timeline-container {
+    padding-left: 30px;
+  }
+
+  .timeline-axis-line {
+    left: 10px;
+  }
+
+  .timeline-node {
+    padding-left: 25px;
+  }
+
+  .timeline-marker {
+    left: 10px;
+  }
+
+  .timeline-icon-box {
+    left: 25px;
+  }
+
+  .timeline-year-label {
+    margin-left: 40px;
+  }
+
+  .timeline-card {
+    margin-left: 40px;
+    padding: 1.25rem;
+  }
+}
+
+/* ==========================================================================
+   Profile & Honeycomb Bio Section
+   ========================================================================== */
+
+.profile-section {
+  padding: 5rem 2rem 3rem 2rem;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 5;
+}
+
+.profile-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4rem;
+}
+
+.bio-header {
+  flex: 1;
+  max-width: 500px;
+  animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.bio-name {
+  font-size: 3.5rem;
+  font-weight: 800;
+  color: var(--color-brand-dark);
+  margin-bottom: 0.25rem;
+  letter-spacing: -0.04em;
+  line-height: 1.1;
+}
+
+body.dark-mode .bio-name {
+  color: var(--timeline-line-fill);
+  text-shadow: 0 0 20px rgba(90, 158, 77, 0.25);
+}
+
+.bio-subtitle {
+  font-size: 1.25rem;
+  color: var(--text-secondary);
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  letter-spacing: -0.01em;
+}
+
+.bio-divider {
+  width: 60px;
+  height: 4px;
+  background-color: var(--color-brand-dark);
+  margin-bottom: 1.5rem;
+  border-radius: 2px;
+}
+
+body.dark-mode .bio-divider {
+  background-color: var(--timeline-line-fill);
+}
+
+.bio-desc {
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+/* Honeycomb Grid Container */
+.honeycomb-grid {
+  position: relative;
+  width: 800px;
+  height: 760px;
+  flex-shrink: 0;
+  margin-right: -40px;
+  animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.15s forwards;
+  opacity: 0;
+}
+
+/* Each Honeycomb Cell Wrapper (handles placement and drop shadow) */
+.honeycomb-cell {
+  position: absolute;
+  width: 260px;
+  height: 300px;
+  filter: drop-shadow(0 6px 15px rgba(0, 0, 0, 0.06));
+  transition: transform var(--transition-normal), filter var(--transition-normal), z-index 0s;
+  z-index: 10;
+}
+
+body.dark-mode .honeycomb-cell {
+  filter: drop-shadow(0 6px 20px rgba(0, 0, 0, 0.3));
+}
+
+.honeycomb-cell:hover {
+  transform: scale(1.06) translateY(-5px);
+  filter: drop-shadow(0 15px 30px rgba(56, 107, 46, 0.18));
+  z-index: 20;
+}
+
+body.dark-mode .honeycomb-cell:hover {
+  filter: drop-shadow(0 15px 35px rgba(90, 158, 77, 0.3));
+}
+
+/* Double-clipped cell structure to simulate a hexagon border */
+.honeycomb-cell-inner {
+  width: 100%;
+  height: 100%;
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  background-color: var(--color-brand-dark); /* Hexagon outer border color */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2.25rem 1.5rem;
+  text-align: center;
+  transition: background-color var(--transition-normal);
+  box-sizing: border-box;
+  position: relative;
+}
+
+body.dark-mode .honeycomb-cell-inner {
+  background-color: rgba(90, 158, 77, 0.6);
+}
+
+.honeycomb-cell:hover .honeycomb-cell-inner {
+  background-color: var(--color-brand-dark);
+}
+
+body.dark-mode .honeycomb-cell:hover .honeycomb-cell-inner {
+  background-color: var(--timeline-line-fill);
+}
+
+/* Inner cell background */
+.honeycomb-cell-inner::before {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  right: 3px;
+  bottom: 3px;
+  background-color: var(--bg-card);
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  z-index: 1;
+  transition: background-color var(--transition-normal), opacity var(--transition-normal);
+}
+
+/* Elements inside cells need z-index: 2 to sit above the ::before background */
+.honeycomb-icon,
+.honeycomb-title,
+.honeycomb-cell-inner p,
+.honeycomb-cell-inner div {
+  position: relative;
+  z-index: 2;
+}
+
+/* Icon style */
+.honeycomb-icon {
+  width: 30px;
+  height: 30px;
+  color: var(--color-brand-dark);
+  margin-bottom: 0.25rem;
+  transition: transform var(--transition-normal), color var(--transition-normal);
+}
+
+body.dark-mode .honeycomb-icon {
+  color: var(--timeline-line-fill);
+}
+
+.honeycomb-cell:hover .honeycomb-icon {
+  transform: translateY(-2px) scale(1.1);
+  color: var(--color-brand-dark);
+}
+
+body.dark-mode .honeycomb-cell:hover .honeycomb-icon {
+  color: var(--timeline-line-fill);
+}
+
+.honeycomb-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* Title inside cell */
+.honeycomb-title {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--color-brand-dark);
+  margin-top: 0.25rem;
+  margin-bottom: 0.75rem;
+  letter-spacing: -0.02em;
+  transition: color var(--transition-normal);
+}
+
+body.dark-mode .honeycomb-title {
+  color: var(--timeline-line-fill);
+}
+
+.honeycomb-cell-inner p {
+  font-size: 0.8rem;
+  line-height: 1.45;
+  color: var(--text-secondary);
+  margin-bottom: 0.25rem;
+}
+
+.honeycomb-cell-inner p strong {
+  color: var(--text-primary);
+}
+
+.edu-sub {
+  font-size: 0.72rem !important;
+  color: var(--text-muted) !important;
+  margin-bottom: 0.6rem !important;
+}
+
+.objective-text {
+  font-size: 0.78rem !important;
+  line-height: 1.5 !important;
+  max-width: 90%;
+}
+
+.contact-item {
+  font-size: 0.76rem !important;
+}
+
+/* Skills tag styling */
+.skills-tags {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.35rem;
+  margin-top: 0.5rem;
+  max-width: 95%;
+}
+
+.skills-tags span {
+  font-size: 0.68rem;
+  padding: 0.25rem 0.5rem;
+  background-color: var(--color-brand-light);
+  color: var(--color-brand-dark);
+  border-radius: 4px;
+  font-weight: 600;
+  border: 1px solid rgba(56, 107, 46, 0.1);
+  transition: all var(--transition-fast);
+}
+
+body.dark-mode .skills-tags span {
+  background-color: rgba(90, 158, 77, 0.1);
+  color: var(--timeline-line-fill);
+  border-color: rgba(90, 158, 77, 0.2);
+}
+
+.honeycomb-cell:hover .skills-tags span {
+  background-color: var(--color-brand-dark);
+  color: var(--color-white);
+  border-color: transparent;
+}
+
+body.dark-mode .honeycomb-cell:hover .skills-tags span {
+  background-color: var(--timeline-line-fill);
+  color: var(--bg-primary);
+}
+
+/* Image Cell Specific Styles */
+.cell-image .honeycomb-cell-inner::before {
+  background-image: inherit;
+  background-size: cover;
+  background-position: center;
+  opacity: 1;
+  z-index: 1;
+}
+
+/* Dark cover overlay on image hover */
+.image-overlay {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  right: 3px;
+  bottom: 3px;
+  background-color: rgba(56, 107, 46, 0.85);
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity var(--transition-normal);
+  z-index: 2;
+  padding: 1rem;
+}
+
+body.dark-mode .image-overlay {
+  background-color: rgba(11, 14, 11, 0.85);
+}
+
+.honeycomb-cell:hover .image-overlay {
+  opacity: 1;
+}
+
+.overlay-name {
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: var(--color-white);
+  margin-bottom: 0.25rem;
+  letter-spacing: -0.02em;
+}
+
+.overlay-title {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.8) !important;
+}
+
+/* Absolutely position 2-3-2 honeycomb layout on desktop */
+.cell-4 { left: calc(50% - 130px); top: calc(50% - 150px); }
+.cell-3 { left: calc(50% - 130px - 270px); top: calc(50% - 150px); }
+.cell-5 { left: calc(50% - 130px + 270px); top: calc(50% - 150px); }
+.cell-1 { left: calc(50% - 130px - 135px); top: calc(50% - 150px - 230px); }
+.cell-2 { left: calc(50% - 130px + 135px); top: calc(50% - 150px - 230px); }
+.cell-6 { left: calc(50% - 130px - 135px); top: calc(50% - 150px + 230px); }
+.cell-7 { left: calc(50% - 130px + 135px); top: calc(50% - 150px + 230px); }
+
+/* ==========================================================================
+   Responsive Profile Layout
+   ========================================================================== */
+
+@media (max-width: 1200px) {
+  .profile-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 3rem;
+    text-align: center;
+  }
+
+  .bio-header {
+    max-width: 650px;
+  }
+
+  .bio-divider {
+    margin: 0 auto 1.5rem auto;
+  }
+
+  .honeycomb-grid {
+    margin-right: 0;
+  }
+}
+
+@media (max-width: 900px) {
+  .honeycomb-grid {
+    transform: scale(0.85);
+    margin: -60px 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .profile-section {
+    padding: 3rem 1.5rem 1.5rem 1.5rem;
+  }
+
+  .honeycomb-grid {
+    transform: none;
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    margin: 0;
+  }
+
+  .honeycomb-cell {
+    position: relative;
+    left: auto !important;
+    top: auto !important;
+    width: 270px;
+    height: 310px;
+    margin-bottom: -40px; /* Overlaps vertically in a vertical honeycomb chain */
+  }
+
+  .honeycomb-cell:last-child {
+    margin-bottom: 0;
+  }
+}
