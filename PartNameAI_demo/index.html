@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tra Cứu Tên Phụ Tùng Hino - Demo</title>
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<div class="header">
+  <h1>🔍 Tra Cứu Tên Phụ Tùng Hino</h1>
+  <p>Tìm kiếm và dịch tên phụ tùng xe Hino - Hỗ trợ AI Translations</p>
+  <p style="font-size: 12px; color: #999; margin-top: 12px;">Demo Site - Multiple AI Translations with Scores</p>
+</div>
+
+<div class="search-bar">
+  <div class="search-container">
+    <div class="search-icon">🔎</div>
+    <input 
+      type="text" 
+      id="searchInput" 
+      placeholder="Nhập mã phụ tùng (VD: ENG, FLT, PAD) hoặc tên..."
+      autocomplete="off"
+    >
+    <div class="fuzzy-dropdown" id="fuzzyDropdown"></div>
+  </div>
+  <div class="search-info" id="searchInfo"></div>
+  <div class="search-button-row">
+    <button class="search-btn primary" onclick="searchByName()">Tìm kiếm theo Tên</button>
+    <button class="search-btn" onclick="clearSearch()">Xóa</button>
+  </div>
+</div>
+
+<div class="container">
+  <div id="resultsContainer"></div>
+  <div id="noResults" style="text-align: center; color: #999; padding: 60px 24px;">
+    <p style="font-size: 18px; margin-bottom: 12px;">👋 Chào mừng</p>
+    <p>Nhập mã phụ tùng hoặc tên để bắt đầu tìm kiếm</p>
+    <p style="font-size: 12px; margin-top: 16px; color: #bbb;">Ví dụ: ENG, FLT, SUP, PAD, LGT, BAT</p>
+  </div>
+</div>
+
+<script src="assets/js/app.js"></script>
+</body>
+</html>

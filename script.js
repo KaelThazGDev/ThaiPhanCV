@@ -103,6 +103,21 @@ document.addEventListener('DOMContentLoaded', () => {
       task2022C: 'Analyze Dealer\'s performance & KPI',
       task2022D: 'Support developing ERP & CRM software',
       task2022E: 'Provide Standard Operation Procedure training',
+      projectsTitle: 'Featured Projects',
+      projectsSubtitle: 'Showcasing my technical expertise and accomplishments',
+      project1Name: 'Hino Part Name Standardization',
+      project1Desc: 'AI-powered part lookup tool with fuzzy search, bilingual support, and multiple translation variants from different AI sources (Reviewed, Gemini, Ollama).',
+      project1Feature1: '🔍 Smart fuzzy matching with Levenshtein distance',
+      project1Feature2: '🤖 Multiple AI translation sources with quality scoring',
+      project1Feature3: '🇻🇳 Bilingual Vietnamese/English interface',
+      project1Feature4: '📱 Fully responsive across all devices',
+      project2Name: 'HinoPartWeb Dashboard',
+      project2Desc: 'Interactive management dashboard for Hino parts inventory with real-time data visualization, hierarchical category navigation, and comprehensive analytics.',
+      project2Feature1: '📊 Interactive dashboard with real-time data',
+      project2Feature2: '🗂️ Hierarchical category and model navigation',
+      project2Feature3: '📈 Comprehensive analytics and KPI tracking',
+      project2Feature4: '🎨 Modern responsive design with dark/light modes',
+      viewDemo: 'View Demo',
       footerText: '© 2026 Thai Phan. All Rights Reserved. Crafted with passion.',
     },
     vn: {
@@ -170,6 +185,21 @@ document.addEventListener('DOMContentLoaded', () => {
       task2022C: 'Phân tích hiệu suất và KPI của đại lý',
       task2022D: 'Hỗ trợ phát triển phần mềm ERP và CRM',
       task2022E: 'Đào tạo quy trình vận hành chuẩn',
+      projectsTitle: 'Dự án tiêu biểu',
+      projectsSubtitle: 'Giới thiệu kỹ năng kỹ thuật và những thành tựu của tôi',
+      project1Name: 'Hino Công cụ tiêu chuẩn hóa tên phụ tùng',
+      project1Desc: 'Công cụ tìm kiếm phụ tùng do AI hỗ trợ với tìm kiếm mờ, hỗ trợ đa ngôn ngữ, và nhiều biến thể dịch thuật từ các nguồn AI khác nhau (Reviewed, Gemini, Ollama).',
+      project1Feature1: '🔍 Khớp mờ thông minh với thuật toán Levenshtein',
+      project1Feature2: '🤖 Nhiều nguồn dịch thuật AI có điểm chất lượng',
+      project1Feature3: '🇻🇳 Giao diện đa ngôn ngữ Việt/Anh',
+      project1Feature4: '📱 Đáp ứng đầy đủ trên tất cả các thiết bị',
+      project2Name: 'Dashboard HinoPartWeb',
+      project2Desc: 'Bảng điều khiển quản lý tương tác cho kho phụ tùng Hino với trực quan hóa dữ liệu thời gian thực, điều hướng danh mục phân cấp, và phân tích toàn diện.',
+      project2Feature1: '📊 Bảng điều khiển tương tác với dữ liệu thời gian thực',
+      project2Feature2: '🗂️ Điều hướng danh mục và mô hình phân cấp',
+      project2Feature3: '📈 Theo dõi phân tích toàn diện và KPI',
+      project2Feature4: '🎨 Thiết kế hiện đại, đáp ứng với chế độ tối/sáng',
+      viewDemo: 'Xem Demo',
       footerText: '© 2026 Thai Phan. Bản quyền thuộc về Thai Phan. Được tạo bằng đam mê.',
     }
   };
@@ -247,6 +277,16 @@ document.addEventListener('DOMContentLoaded', () => {
       nodeObserver.observe(node);
     });
   }
+
+  // ==========================================================================
+  // Project Cards Animation (Intersection Observer)
+  // ==========================================================================
+  const projectCards = document.querySelectorAll('.project-card');
+  
+  projectCards.forEach((card, index) => {
+    card.style.animationDelay = `${index * 150}ms`;
+    nodeObserver.observe(card);
+  });
 
   // Dynamic axis fill animation on mobile scroll
   const handleMobileScroll = () => {

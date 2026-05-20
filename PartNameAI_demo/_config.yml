@@ -1,0 +1,15 @@
+# GitHub Pages configuration
+title: Hino Part Name Standardization
+description: Fuzzy search for Hino vehicle part numbers with Vietnamese and English translations
+remote_theme: pages-themes/cayman@v0.2.0
+
+# Exclude unnecessary files
+exclude:
+  - README.md
+  - .gitignore
+  - requirements.txt
+  - Procfile
+  - app.py
+  - data_processor.py
+  - template.html
+  - input/
