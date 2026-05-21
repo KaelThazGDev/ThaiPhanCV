@@ -592,49 +592,49 @@ function renderResults(results) {
           <span class="part-number">${part.pn}</span>
         </div>
         
-        <div style="margin-bottom: 20px; padding-bottom: 12px; border-bottom: 1px solid #f0f0f0;">
-          <div style="font-size: 13px; color: #5f6368; margin-bottom: 8px;">
+        <div style="margin-bottom: 20px; padding-bottom: 12px; border-bottom: 1px solid var(--card-border);">
+          <div style="font-size: 13px; color: var(--text-secondary); margin-bottom: 8px;">
             <strong>📂 Category:</strong> ${groups}
           </div>
-          <div style="font-size: 13px; color: #5f6368;">
+          <div style="font-size: 13px; color: var(--text-secondary);">
             <strong>📌 Parts:</strong> ${subgroups}
           </div>
         </div>
 
         <div style="margin-bottom: 20px;">
-          <div style="font-size: 13px; color: #5f6368; margin-bottom: 8px;">
+          <div style="font-size: 13px; color: var(--text-secondary); margin-bottom: 8px;">
             <strong>🌐 English:</strong> <em>${firstName?.name}</em>
           </div>
-          <div style="font-size: 13px; color: #5f6368;">
+          <div style="font-size: 13px; color: var(--text-secondary);">
             <strong>📋 Category:</strong> ${firstName?.grpVn}
           </div>
         </div>
 
-        <div style="background: #f8faff; border-radius: 12px; padding: 16px; border: 1px solid #e1e8f5; margin-bottom: 16px;">
-          <div style="font-size: 12px; font-weight: 700; color: #1a73e8; text-transform: uppercase; margin-bottom: 12px; letter-spacing: 0.5px;">
+        <div style="background: var(--tag-bg); border-radius: 12px; padding: 16px; border: 1px solid var(--tag-border); margin-bottom: 16px;">
+          <div style="font-size: 12px; font-weight: 700; color: var(--color-brand-dark); text-transform: uppercase; margin-bottom: 12px; letter-spacing: 0.5px;">
             🤖 AI Translation Options
           </div>
           
           <div style="display: grid; gap: 12px;">
             ${translations.map(t => `
-              <div style="background: #fff; padding: 12px; border-radius: 8px; border-left: 3px solid ${getScoreColor(t.score)};">
+              <div style="background: var(--bg-card); padding: 12px; border-radius: 8px; border-left: 3px solid ${getScoreColor(t.score)};">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-                  <span style="font-size: 12px; font-weight: 600; color: #1a73e8;">${t.source}</span>
+                  <span style="font-size: 12px; font-weight: 600; color: var(--color-brand-dark);">${t.source}</span>
                   <span style="font-size: 11px; background: ${getScoreBg(t.score)}; color: ${getScoreText(t.score)}; padding: 2px 8px; border-radius: 12px; font-weight: 700;">
                     Score: ${(parseFloat(t.score) * 100).toFixed(0)}%
                   </span>
                 </div>
-                <div style="font-size: 15px; font-weight: 600; color: #1a202c; margin-bottom: 4px;">${t.vn}</div>
-                <div style="font-size: 11px; color: #70757a;">💡 ${t.note}</div>
+                <div style="font-size: 15px; font-weight: 600; color: var(--text-primary); margin-bottom: 4px;">${t.vn}</div>
+                <div style="font-size: 11px; color: var(--text-muted);">💡 ${t.note}</div>
               </div>
             `).join('')}
           </div>
         </div>
 
         ${firstName?.vn4 ? `
-          <div style="background: #fff9e6; border-radius: 8px; padding: 12px; border: 1px solid #f0d787; margin-bottom: 16px;">
-            <div style="font-size: 11px; font-weight: 700; color: #9c6c00; margin-bottom: 4px;">📚 Legacy Translation</div>
-            <div style="font-size: 13px; color: #1a202c;">${firstName?.vn4}</div>
+          <div style="background: var(--tag-bg); border-radius: 8px; padding: 12px; border: 1px solid var(--tag-border); margin-bottom: 16px;">
+            <div style="font-size: 11px; font-weight: 700; color: var(--text-secondary); margin-bottom: 4px;">📚 Legacy Translation</div>
+            <div style="font-size: 13px; color: var(--text-primary);">${firstName?.vn4}</div>
           </div>
         ` : ''}
 
@@ -644,7 +644,7 @@ function renderResults(results) {
         </div>
 
         ${part.note ? `
-          <div style="margin-top: 12px; font-size: 12px; color: #5f6368; padding: 8px; background: #f1f3f4; border-radius: 6px;">
+          <div style="margin-top: 12px; font-size: 12px; color: var(--text-secondary); padding: 8px; background: var(--tag-bg); border-radius: 6px; border: 1px solid var(--tag-border);">
             <strong>📝 Note:</strong> ${part.note}
           </div>
         ` : ''}

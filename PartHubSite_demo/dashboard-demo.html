@@ -4,18 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HinoPartWeb - Interactive Demo Dashboard</title>
+    <!-- Premium Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <style>
-        /* Dashboard-specific styles */
+        /* Dashboard-specific styles - Matching Main Site Theme */
         .dashboard-container {
             display: flex;
             min-height: calc(100vh - 60px);
-            background-color: #f5f5f5;
+            background-color: var(--bg-primary);
+            transition: background-color var(--transition-normal);
         }
 
         .sidebar {
             width: 250px;
-            background: var(--dark-bg);
+            background: var(--sidebar-bg);
             color: white;
             padding: 0;
             position: fixed;
@@ -23,6 +28,8 @@
             overflow-y: auto;
             left: 0;
             top: 60px;
+            border-right: 1px solid rgba(255, 255, 255, 0.05);
+            transition: background-color var(--transition-normal);
         }
 
         .sidebar-menu {
@@ -37,18 +44,18 @@
         .sidebar-menu a {
             display: block;
             padding: 12px 20px;
-            color: white;
+            color: rgba(255, 255, 255, 0.85);
             text-decoration: none;
             border-left: 3px solid transparent;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all var(--transition-fast);
         }
 
         .sidebar-menu a:hover,
         .sidebar-menu a.active {
-            background-color: rgba(52, 152, 219, 0.1);
-            border-left-color: var(--secondary-color);
-            color: var(--secondary-color);
+            background-color: rgba(132, 189, 0, 0.1);
+            border-left-color: var(--color-brand-accent);
+            color: var(--color-brand-accent);
         }
 
         .main-content {
@@ -76,32 +83,51 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 30px;
-            background: white;
+            background: var(--bg-card);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             padding: 20px;
-            border-radius: 10px;
-            box-shadow: var(--shadow);
+            border-radius: 16px;
+            box-shadow: var(--card-shadow);
+            border: 1px solid var(--card-border);
+            transition: background-color var(--transition-normal), border-color var(--transition-normal);
         }
 
         .section-header h1 {
             margin: 0;
-            color: var(--dark-bg);
+            color: var(--text-primary);
+            font-weight: 700;
         }
 
         .search-box {
             width: 100%;
             padding: 12px;
-            border: 1px solid var(--border-color);
-            border-radius: 5px;
+            border: 1px solid var(--card-border);
+            border-radius: 8px;
             font-size: 1rem;
             margin-bottom: 20px;
+            font-family: var(--font-family);
+            background: var(--btn-bg);
+            color: var(--text-primary);
+            transition: all var(--transition-fast);
+        }
+
+        .search-box:focus {
+            outline: none;
+            border-color: var(--color-brand-dark);
+            box-shadow: 0 0 0 3px rgba(56, 107, 46, 0.1);
         }
 
         .table-container {
-            background: white;
-            border-radius: 10px;
+            background: var(--bg-card);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 16px;
             overflow: hidden;
-            box-shadow: var(--shadow);
+            box-shadow: var(--card-shadow);
             margin-bottom: 30px;
+            border: 1px solid var(--card-border);
+            transition: background-color var(--transition-normal), border-color var(--transition-normal);
         }
 
         .data-table {
@@ -110,7 +136,7 @@
         }
 
         .data-table thead {
-            background: var(--secondary-color);
+            background: var(--color-brand-dark);
             color: white;
         }
 
@@ -122,11 +148,12 @@
 
         .data-table td {
             padding: 15px;
-            border-bottom: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--card-border);
+            color: var(--text-primary);
         }
 
         .data-table tbody tr:hover {
-            background-color: var(--light-bg);
+            background-color: var(--table-hover);
         }
 
         .badge {
@@ -138,18 +165,18 @@
         }
 
         .badge-success {
-            background-color: #d4edda;
-            color: #155724;
+            background-color: var(--badge-success-bg);
+            color: var(--badge-success-text);
         }
 
         .badge-warning {
-            background-color: #fff3cd;
-            color: #856404;
+            background-color: var(--badge-warning-bg);
+            color: var(--badge-warning-text);
         }
 
         .badge-danger {
-            background-color: #f8d7da;
-            color: #721c24;
+            background-color: var(--badge-danger-bg);
+            color: var(--badge-danger-text);
         }
 
         .stats-grid {
@@ -160,15 +187,20 @@
         }
 
         .stat-box {
-            background: white;
+            background: var(--bg-card);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             padding: 25px;
-            border-radius: 10px;
-            box-shadow: var(--shadow);
-            border-left: 4px solid var(--secondary-color);
+            border-radius: 16px;
+            box-shadow: var(--card-shadow);
+            border-left: 4px solid var(--color-brand-dark);
+            border: 1px solid var(--card-border);
+            border-left: 4px solid var(--color-brand-dark);
+            transition: background-color var(--transition-normal), border-color var(--transition-normal);
         }
 
         .stat-box h3 {
-            color: var(--text-light);
+            color: var(--text-secondary);
             font-size: 0.95rem;
             margin-bottom: 10px;
             font-weight: 500;
@@ -177,14 +209,14 @@
 
         .stat-box .value {
             font-size: 2rem;
-            font-weight: bold;
-            color: var(--dark-bg);
+            font-weight: 800;
+            color: var(--text-primary);
         }
 
         .part-detail {
-            background: var(--light-bg);
+            background: var(--tag-bg);
             padding: 20px;
-            border-radius: 10px;
+            border-radius: 12px;
             margin-bottom: 20px;
         }
 
@@ -201,22 +233,26 @@
 
         .part-detail-item label {
             font-weight: 600;
-            color: var(--text-light);
+            color: var(--text-secondary);
             font-size: 0.85rem;
             margin-bottom: 5px;
         }
 
         .part-detail-item span {
-            color: var(--dark-bg);
+            color: var(--text-primary);
             font-size: 1rem;
         }
 
         .filter-section {
-            background: white;
+            background: var(--bg-card);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             padding: 20px;
-            border-radius: 10px;
+            border-radius: 16px;
             margin-bottom: 20px;
-            box-shadow: var(--shadow);
+            box-shadow: var(--card-shadow);
+            border: 1px solid var(--card-border);
+            transition: background-color var(--transition-normal), border-color var(--transition-normal);
         }
 
         .filter-row {
@@ -233,29 +269,44 @@
         .filter-group label {
             font-weight: 600;
             margin-bottom: 8px;
-            color: var(--dark-bg);
+            color: var(--text-primary);
         }
 
         .filter-group select,
         .filter-group input {
             padding: 10px;
-            border: 1px solid var(--border-color);
-            border-radius: 5px;
+            border: 1px solid var(--card-border);
+            border-radius: 8px;
             font-size: 0.95rem;
+            font-family: var(--font-family);
+            background: var(--btn-bg);
+            color: var(--text-primary);
+            transition: all var(--transition-fast);
+        }
+
+        .filter-group select:focus,
+        .filter-group input:focus {
+            outline: none;
+            border-color: var(--color-brand-dark);
+            box-shadow: 0 0 0 3px rgba(56, 107, 46, 0.1);
         }
 
         .no-data {
             text-align: center;
             padding: 40px;
-            color: var(--text-light);
+            color: var(--text-muted);
         }
 
         .form-container {
-            background: white;
+            background: var(--bg-card);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             padding: 30px;
-            border-radius: 10px;
-            box-shadow: var(--shadow);
+            border-radius: 16px;
+            box-shadow: var(--card-shadow);
             margin-bottom: 30px;
+            border: 1px solid var(--card-border);
+            transition: background-color var(--transition-normal), border-color var(--transition-normal);
         }
 
         .form-grid {
@@ -272,17 +323,28 @@
         .form-group label {
             font-weight: 600;
             margin-bottom: 8px;
-            color: var(--dark-bg);
+            color: var(--text-primary);
         }
 
         .form-group input,
         .form-group select,
         .form-group textarea {
             padding: 10px;
-            border: 1px solid var(--border-color);
-            border-radius: 5px;
+            border: 1px solid var(--card-border);
+            border-radius: 8px;
             font-size: 0.95rem;
-            font-family: inherit;
+            font-family: var(--font-family);
+            background: var(--btn-bg);
+            color: var(--text-primary);
+            transition: all var(--transition-fast);
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--color-brand-dark);
+            box-shadow: 0 0 0 3px rgba(56, 107, 46, 0.1);
         }
 
         .form-group textarea {
@@ -291,44 +353,50 @@
         }
 
         .btn-primary {
-            background: var(--secondary-color);
+            background: linear-gradient(135deg, var(--color-brand-dark), var(--color-brand-accent));
             color: white;
             border: none;
             padding: 12px 30px;
-            border-radius: 5px;
+            border-radius: 8px;
             cursor: pointer;
             font-weight: 600;
-            transition: all 0.3s ease;
+            transition: all var(--transition-normal);
+            font-family: var(--font-family);
         }
 
         .btn-primary:hover {
-            background: #2980b9;
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
+            box-shadow: 0 5px 15px rgba(56, 107, 46, 0.3);
         }
 
         .top-bar {
-            background: white;
+            background: var(--bg-card);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             padding: 20px;
-            border-radius: 10px;
+            border-radius: 16px;
             margin-bottom: 20px;
-            box-shadow: var(--shadow);
+            box-shadow: var(--card-shadow);
+            border: 1px solid var(--card-border);
             display: flex;
             justify-content: space-between;
             align-items: center;
+            transition: background-color var(--transition-normal), border-color var(--transition-normal);
         }
 
         .demo-notice {
-            background: #cce5ff;
-            border-left: 4px solid var(--secondary-color);
+            background: var(--tag-bg);
+            border-left: 4px solid var(--color-brand-dark);
             padding: 15px;
-            border-radius: 5px;
+            border-radius: 8px;
             margin-bottom: 20px;
-            color: #004085;
+            color: var(--text-primary);
+            border: 1px solid var(--tag-border);
+            border-left-width: 4px;
         }
 
         .demo-notice strong {
-            color: var(--dark-bg);
+            color: var(--color-brand-dark);
         }
 
         @media (max-width: 768px) {
@@ -378,7 +446,7 @@
         }
     </style>
 </head>
-<body>
+<body class="light-mode">
     <!-- Navigation Bar -->
     <nav class="navbar">
         <div class="nav-container">
@@ -387,7 +455,20 @@
                 <span>HinoPartWeb Demo Dashboard</span>
             </div>
             <ul class="nav-menu">
-                <li><a href="index.html" class="nav-link">← Back to Home</a></li>
+                <li><a href="../index.html" class="nav-link">← Back to Main Site</a></li>
+                <li>
+                    <button id="theme-toggle" class="theme-btn" aria-label="Toggle Theme" title="Switch Theme" style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: white; padding: 0.6rem; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);">
+                        <!-- Sun Icon (shown in dark mode) -->
+                        <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: none; width: 1.25rem; height: 1.25rem;">
+                            <circle cx="12" cy="12" r="4"/>
+                            <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
+                        </svg>
+                        <!-- Moon Icon (shown in light mode) -->
+                        <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 1.25rem; height: 1.25rem;">
+                            <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>
+                        </svg>
+                    </button>
+                </li>
             </ul>
         </div>
     </nav>
@@ -445,7 +526,7 @@
                     </div>
                 </div>
 
-                <h2 style="margin-top: 40px; margin-bottom: 20px;">Recent Lost Sales</h2>
+                <h2 style="margin-top: 40px; margin-bottom: 20px; color: var(--text-primary);">Recent Lost Sales</h2>
                 <div class="table-container">
                     <table class="data-table">
                         <thead>
@@ -462,7 +543,7 @@
                     </table>
                 </div>
 
-                <h2 style="margin-top: 40px; margin-bottom: 20px;">Inventory Status</h2>
+                <h2 style="margin-top: 40px; margin-bottom: 20px; color: var(--text-primary);">Inventory Status</h2>
                 <div class="table-container">
                     <table class="data-table">
                         <thead>
@@ -505,7 +586,7 @@
                     </table>
                 </div>
 
-                <div id="partDetailModal" style="display: none; background: white; padding: 20px; border-radius: 10px; box-shadow: var(--shadow); margin-top: 30px;">
+                <div id="partDetailModal" style="display: none; background: var(--bg-card); padding: 20px; border-radius: 16px; box-shadow: var(--card-shadow); border: 1px solid var(--card-border); margin-top: 30px;">
                     <h2 id="partDetailTitle"></h2>
                     <div class="part-detail-grid">
                         <div class="part-detail-item">
@@ -669,13 +750,52 @@
                     <h1>🏭 Dealerships</h1>
                 </div>
 
-                <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px;">
-                    <div id="dealersContainer"></div>
-                </div>
+                <div id="dealersContainer" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px;">
             </section>
         </main>
     </div>
 
+    <script>
+        // Theme Toggle Functionality
+        (function() {
+            const themeToggleBtn = document.getElementById('theme-toggle');
+            const body = document.body;
+            const savedTheme = localStorage.getItem('theme');
+            const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+            if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
+                body.classList.remove('light-mode');
+                body.classList.add('dark-mode');
+                // Update theme toggle button icons
+                const sunIcon = themeToggleBtn?.querySelector('.sun-icon');
+                const moonIcon = themeToggleBtn?.querySelector('.moon-icon');
+                if (sunIcon) sunIcon.style.display = 'block';
+                if (moonIcon) moonIcon.style.display = 'none';
+            }
+
+            if (themeToggleBtn) {
+                themeToggleBtn.addEventListener('click', () => {
+                    if (body.classList.contains('light-mode')) {
+                        body.classList.remove('light-mode');
+                        body.classList.add('dark-mode');
+                        localStorage.setItem('theme', 'dark');
+                        const sunIcon = themeToggleBtn.querySelector('.sun-icon');
+                        const moonIcon = themeToggleBtn.querySelector('.moon-icon');
+                        if (sunIcon) sunIcon.style.display = 'block';
+                        if (moonIcon) moonIcon.style.display = 'none';
+                    } else {
+                        body.classList.remove('dark-mode');
+                        body.classList.add('light-mode');
+                        localStorage.setItem('theme', 'light');
+                        const sunIcon = themeToggleBtn.querySelector('.sun-icon');
+                        const moonIcon = themeToggleBtn.querySelector('.moon-icon');
+                        if (sunIcon) sunIcon.style.display = 'none';
+                        if (moonIcon) moonIcon.style.display = 'block';
+                    }
+                });
+            }
+        })();
+    </script>
     <script src="data/sample-data.js"></script>
     <script>
         // Initialize dashboard
