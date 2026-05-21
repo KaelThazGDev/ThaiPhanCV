@@ -225,11 +225,188 @@ const fuzzyDropdown = document.getElementById('fuzzyDropdown');
 const resultsContainer = document.getElementById('resultsContainer');
 const noResults = document.getElementById('noResults');
 const searchInfo = document.getElementById('searchInfo');
+const thinkingContainer = document.getElementById('thinkingContainer');
+const thinkingSteps = document.getElementById('thinkingSteps');
+const thinkingProgressBar = document.getElementById('thinkingProgressBar');
+const thinkingComplete = document.getElementById('thinkingComplete');
 
 // Event listeners
 searchInput.addEventListener('input', handleFuzzySearch);
 searchInput.addEventListener('keydown', handleSearchKeydown);
 document.addEventListener('click', closeFuzzyDropdown);
+
+// ===== Thinking Phase Functions =====
+
+function showThinking(query, results) {
+  // Reset and show thinking container
+  thinkingContainer.style.display = 'block';
+  thinkingSteps.innerHTML = '';
+  thinkingProgressBar.style.width = '0%';
+  thinkingComplete.classList.remove('visible');
+  resultsContainer.innerHTML = '';
+  noResults.style.display = 'none';
+
+  // Generate contextual thinking steps based on query and results
+  const steps = generateThinkingSteps(query, results);
+  let currentStep = 0;
+  const totalSteps = steps.length;
+
+  function revealNextStep() {
+    if (currentStep >= totalSteps) {
+      finishThinking(results);
+      return;
+    }
+
+    const step = steps[currentStep];
+    const stepEl = document.createElement('div');
+    stepEl.className = 'thinking-step';
+    stepEl.innerHTML = `
+      <div class="step-status"></div>
+      <div class="step-content">
+        <div class="step-label">${step.label}</div>
+        <div class="step-detail">${step.detail}</div>
+      </div>
+    `;
+    thinkingSteps.appendChild(stepEl);
+
+    // Trigger active state after a tiny delay for animation
+    requestAnimationFrame(() => {
+      stepEl.classList.add('visible', 'active');
+    });
+
+    // Mark previous step as completed
+    const prevSteps = thinkingSteps.querySelectorAll('.thinking-step');
+    for (let i = 0; i < prevSteps.length - 1; i++) {
+      prevSteps[i].classList.remove('active');
+      prevSteps[i].classList.add('completed');
+    }
+
+    // Update progress
+    const progress = ((currentStep + 1) / totalSteps) * 100;
+    thinkingProgressBar.style.width = progress + '%';
+
+    currentStep++;
+
+    // Schedule next step with varying delays
+    const delay = step.duration || 400 + Math.random() * 300;
+    setTimeout(revealNextStep, delay);
+  }
+
+  revealNextStep();
+}
+
+function generateThinkingSteps(query, results) {
+  const q = query.toUpperCase();
+  const steps = [];
+
+  steps.push({
+    label: `Nhận diện truy vấn: "${query}"`,
+    detail: `Phân tích mã số và từ khóa đầu vào`,
+    duration: 500
+  });
+
+  steps.push({
+    label: `Quét cơ sở dữ liệu phụ tùng...`,
+    detail: `Tìm kiếm trong ${currentData.length} bản ghi`,
+    duration: 600
+  });
+
+  // Check if query looks like a part number
+  const isPartCode = /^[A-Z]{2,4}/i.test(query);
+  if (isPartCode) {
+    const matchedGroups = [...new Set(results.map(r => r.groups[0]))];
+    steps.push({
+      label: `Phát hiện mã phụ tùng`,
+      detail: `Nhóm phụ tùng: ${matchedGroups.join(', ') || 'Đa dạng'}`,
+      duration: 500
+    });
+  } else {
+    steps.push({
+      label: `Phân tích ngữ nghĩa tìm kiếm`,
+      detail: `Đối chiếu từ khóa với danh mục phụ tùng`,
+      duration: 500
+    });
+  }
+
+  if (results.length > 0) {
+    const totalTranslations = results.reduce((sum, r) => sum + r.names.length, 0);
+    steps.push({
+      label: `Tìm thấy ${results.length} kết quả phù hợp`,
+      detail: `Tổng số bản dịch: ${totalTranslations} phiên bản`,
+      duration: 600
+    });
+
+    // Add translation analysis steps for each result
+    results.forEach((result, idx) => {
+      const firstName = result.names[0];
+      const topScore = firstName?.s1 || '0';
+      const scorePercent = (parseFloat(topScore) * 100).toFixed(0);
+
+      steps.push({
+        label: `Đánh giá bản dịch cho ${result.pn}`,
+        detail: `Điểm tin cậy cao nhất: ${scorePercent}% — "${firstName?.vn1}"`,
+        duration: 500
+      });
+
+      // Compare translations
+      const scores = [firstName?.s1, firstName?.s2, firstName?.s3].filter(Boolean).map(s => parseFloat(s));
+      if (scores.length > 1) {
+        const avgScore = (scores.reduce((a, b) => a + b, 0) / scores.length * 100).toFixed(0);
+        steps.push({
+          label: `Tổng hợp các phiên bản dịch`,
+          detail: `Điểm trung bình: ${avgScore}% — Đối chiếu ${scores.length} nguồn`,
+          duration: 400
+        });
+      }
+    });
+
+    steps.push({
+      label: `Áp dụng thuật toán xếp hạng`,
+      detail: `Sắp xếp theo độ chính xác và nguồn dữ liệu`,
+      duration: 500
+    });
+  } else {
+    steps.push({
+      label: `Không tìm thấy kết quả`,
+      detail: `Thử lại với từ khóa khác hoặc kiểm tra mã phụ tùng`,
+      duration: 800
+    });
+  }
+
+  steps.push({
+    label: `Hoàn tất phân tích`,
+    detail: `Chuẩn bị hiển thị kết quả...`,
+    duration: 400
+  });
+
+  return steps;
+}
+
+function finishThinking(results) {
+  // Mark last step as completed
+  const allSteps = thinkingSteps.querySelectorAll('.thinking-step');
+  allSteps.forEach(s => {
+    s.classList.remove('active');
+    s.classList.add('completed');
+  });
+
+  // Complete progress
+  thinkingProgressBar.style.width = '100%';
+
+  // Show completion message
+  thinkingComplete.classList.add('visible');
+
+  // After a brief delay, hide thinking and show results
+  setTimeout(() => {
+    thinkingContainer.style.display = 'none';
+    thinkingComplete.classList.remove('visible');
+    if (results && results.length > 0) {
+      renderResults(results);
+    } else {
+      renderNoResults('Không tìm thấy phụ tùng phù hợp');
+    }
+  }, 600);
+}
 
 function levenshteinDistance(str1, str2) {
   const len1 = str1.length;
@@ -299,8 +476,12 @@ function handleFuzzySearch(e) {
     resultsContainer.innerHTML = '';
     noResults.style.display = 'block';
     searchInfo.innerHTML = '';
+    thinkingContainer.style.display = 'none';
     return;
   }
+
+  // Hide previous thinking/results when typing new query
+  thinkingContainer.style.display = 'none';
 
   const results = fuzzySearch(query);
   
@@ -381,13 +562,13 @@ function highlightMatch(text, query) {
 function selectPart(pn) {
   const part = currentData.find(p => p.pn === pn);
   if (part) {
-    displayResults([part]);
     searchInput.value = part.pn;
     fuzzyDropdown.classList.remove('show');
+    showThinking(part.pn, [part]);
   }
 }
 
-function displayResults(results) {
+function renderResults(results) {
   if (!results || results.length === 0) {
     renderNoResults('Không tìm thấy phụ tùng');
     searchInfo.innerHTML = '';
@@ -512,8 +693,8 @@ function searchByName() {
   }
 
   const results = fuzzySearch(query, 50);
-  displayResults(results);
   fuzzyDropdown.classList.remove('show');
+  showThinking(query, results);
 }
 
 function clearSearch() {
@@ -523,6 +704,7 @@ function clearSearch() {
   noResults.style.display = 'block';
   fuzzyDropdown.classList.remove('show');
   searchInfo.innerHTML = '';
+  thinkingContainer.style.display = 'none';
 }
 
 function closeFuzzyDropdown(e) {
